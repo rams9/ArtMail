@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {LoginService} from '../../services/login.service';
 import {HttpErrorResponse } from "@angular/common/http";
+import {Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
   result:any;
   loginSubscribe:any;
   private _loginService: LoginService;
-  constructor(private login:LoginService) {
+  constructor(private login:LoginService,private _router:Router) {
   
    }
 
@@ -30,6 +31,7 @@ const data={
 this.loginSubscribe=this.login.CheckLogin(data).subscribe(
   (res)=>{
 this.result=res;
+this._router.navigate(["/home"]);
   },
   (err:HttpErrorResponse)=>{
 if(err.error instanceof Error )
